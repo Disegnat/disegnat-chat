@@ -43,6 +43,7 @@
           { label: "Trade show design", next: { q: "For which event?", attach: "paren", options: ["ICE Amsterdam", "Boot Düsseldorf", "Other event"] } },
           { label: "Publications", next: { q: "One-off or a series?", attach: "paren", options: ["One-off", "Series or collection"] } },
           { label: "Packaging", next: { q: "One-off or a series?", attach: "paren", options: ["One-off", "Series or collection"] } },
+          "Illustration",
           "Something else",
           "Not sure yet"
         ] },
@@ -93,6 +94,7 @@
           { label: "Dizajn sajamskih štandova", next: { q: "Za koji sajam?", attach: "paren", options: ["ICE Amsterdam", "Boot Düsseldorf", "Drugi sajam"] } },
           { label: "Publikacije", next: { q: "Jedan primjerak ili serija?", attach: "paren", options: ["Jednokratno", "Serija ili kolekcija"] } },
           { label: "Ambalaža", next: { q: "Jedan proizvod ili serija?", attach: "paren", options: ["Jednokratno", "Serija ili kolekcija"] } },
+          "Ilustracija",
           "Nešto drugo",
           "Još ne znam"
         ] },
@@ -357,10 +359,11 @@
   }
 
   function send(description) {
+    // Greeting, then the visitor's own words, then the summary of answers
     var out = [T.hello, ""];
-    lines.forEach(function (l) { out.push(l.k + ": " + l.v); });
     var d = (description || "").trim();
-    if (d) { out.push(""); out.push(d); }
+    if (d) { out.push(d); out.push(""); }
+    lines.forEach(function (l) { out.push(l.k + ": " + l.v); });
     var url = "https://wa.me/" + CONFIG.phone + "?text=" + encodeURIComponent(out.join("\n"));
     window.open(url, "_blank", "noopener");
   }
