@@ -1,7 +1,7 @@
 /* ============================================================
    Disegnat WhatsApp Chat — lead qualification widget
    Load with one line in Squarespace Code injection → Footer:
-   <script src="https://cdn.jsdelivr.net/gh/USERNAME/disegnat-chat@v1/disegnat-chat.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/gh/USERNAME/disegnat-chat@v3/disegnat-chat.js" defer></script>
    ============================================================ */
 (function () {
   /* ---------- 1. SETTINGS: edit freely ---------- */
@@ -39,23 +39,22 @@
       steps: [
         { key: "Service", q: "What are you looking for?", options: [
           { label: "Visual identity", next: { q: "Which fits best?", attach: "paren", options: ["New brand", "Refresh existing", "Full rebrand"] } },
-          "Brand assets for print and digital",
           { label: "Website", next: { q: "Which fits best?", attach: "paren", options: ["New website", "Redesign existing", "Updates only"] } },
-          { label: "Trade show design", next: { q: "For which event?", attach: "paren", options: ["ICE Amsterdam", "Boot Düsseldorf", "Other event"] } },
-          { label: "Publications", next: { q: "One-off or a series?", attach: "paren", options: ["One-off", "Series or collection"] } },
-          { label: "Packaging", next: { q: "One-off or a series?", attach: "paren", options: ["One-off", "Series or collection"] } },
-          "Illustration",
+          { label: "Identity and website", next: { q: "Which fits best?", attach: "paren", options: ["New identity and website", "Rebrand and new website for an existing company"] } },
+          { label: "Print materials", next: { q: "What do you need?", attach: "paren", options: ["Brochure or catalogue", "Book or publication", "Poster, flyer or ad", "Packaging", "Souvenirs", "Game", "Illustration", "Something else"] } },
+          { label: "Digital materials", next: { q: "What do you need?", attach: "paren", options: ["Social media", "Online ads and banners", "Presentation", "Illustration", "Something else"] } },
+          { label: "Trade show booth", next: { q: "Which trade show?", input: true, attach: "paren", placeholder: "Name of the trade show" } },
           "Something else",
           "Not sure yet"
-        ] },
-        { key: "Budget", q: "What budget are you planning?", options: [
-          "Under €1,000", "€1,000–3,000", "€3,000–6,000", "€6,000–10,000", "€10,000–20,000", "€20,000+",
-          { label: "Not sure yet", next: { q: "Where are you in the process?", attach: "dot", options: ["Just exploring", "Budget is being decided", "Need a quote to get approval"] } }
         ] },
         { key: "Start", q: "When would you like to start?", options: [
           { label: "As soon as possible", next: "deadline" },
           { label: "Within a month", next: "deadline" },
           "In 1–3 months", "Later", "Flexible"
+        ] },
+        { key: "Budget", q: "What budget are you planning?", options: [
+          "Under €1,000", "€1,000–3,000", "€3,000–6,000", "€6,000–10,000", "€10,000–20,000", "€20,000+",
+          { label: "Not sure yet", next: { q: "Where are you in the process?", attach: "dot", options: ["Just exploring", "Budget is being decided", "Need a quote to get approval"] } }
         ] },
         { key: "Decision", q: "Who decides on the project?", options: [
           "I decide", "Together with partners or team", "Needs management approval"
@@ -63,7 +62,7 @@
         { key: "Found us via", q: "How did you hear about us?", options: [
           "Google", "Instagram", "LinkedIn",
           { label: "Recommendation", next: { q: "Who recommended us?", input: true, attach: "paren", placeholder: "Name or company" } },
-          { label: "Trade show", next: { q: "Which one?", input: true, attach: "paren", placeholder: "e.g. ICE Amsterdam" } },
+          { label: "Trade show", next: { q: "Which one?", input: true, attach: "paren", placeholder: "Name of the trade show" } },
           "Something else"
         ] }
       ],
@@ -71,7 +70,8 @@
         { label: "Yes", out: null, next: { key: "Deadline", q: "What's the deadline?", input: true, attach: "dot", placeholder: "e.g. Boot Düsseldorf, mid-January", skipOut: "not specified" } },
         { label: "No", out: "No fixed deadline" }
       ] },
-      finalQ: "Thanks! Add a few words about your business and the project (optional), then send it on WhatsApp.",
+      finalQ: "Thanks! Finally, your name and a few words about the project, then send it on WhatsApp.",
+      whoPlaceholder: "Your name (and company, if any)",
       hello: "Hi Grgo,",
       placeholder: "e.g. We're a charter company and need a new booth for Boot Düsseldorf…",
       next: "Next", skip: "Skip",
@@ -90,23 +90,22 @@
       steps: [
         { key: "Usluga", q: "Što trebate?", options: [
           { label: "Vizualni identitet", next: { q: "Što najbolje odgovara?", attach: "paren", options: ["Novi brend", "Osvježenje postojećeg", "Potpuni rebranding"] } },
-          "Materijali brenda za tisak i digital",
           { label: "Web stranica", next: { q: "Što najbolje odgovara?", attach: "paren", options: ["Nova web stranica", "Redizajn postojeće", "Samo izmjene"] } },
-          { label: "Dizajn sajamskih štandova", next: { q: "Za koji sajam?", attach: "paren", options: ["ICE Amsterdam", "Boot Düsseldorf", "Drugi sajam"] } },
-          { label: "Publikacije", next: { q: "Jedan primjerak ili serija?", attach: "paren", options: ["Jednokratno", "Serija ili kolekcija"] } },
-          { label: "Ambalaža", next: { q: "Jedan proizvod ili serija?", attach: "paren", options: ["Jednokratno", "Serija ili kolekcija"] } },
-          "Ilustracija",
+          { label: "Identitet i web", next: { q: "Što najbolje odgovara?", attach: "paren", options: ["Novi identitet i web", "Rebranding i novi web postojeće firme"] } },
+          { label: "Tiskani materijali", next: { q: "Što vam treba?", attach: "paren", options: ["Brošura ili katalog", "Knjiga ili publikacija", "Plakat, letak ili oglas", "Ambalaža", "Suveniri", "Igra", "Ilustracija", "Nešto drugo"] } },
+          { label: "Digitalni materijali", next: { q: "Što vam treba?", attach: "paren", options: ["Društvene mreže", "Online oglasi i banneri", "Prezentacija", "Ilustracija", "Nešto drugo"] } },
+          { label: "Sajamski štand", next: { q: "Za koji sajam?", input: true, attach: "paren", placeholder: "Naziv sajma" } },
           "Nešto drugo",
           "Još ne znam"
-        ] },
-        { key: "Budžet", q: "Koliki budžet planirate?", options: [
-          "Do 1.000 €", "1.000–3.000 €", "3.000–6.000 €", "6.000–10.000 €", "10.000–20.000 €", "20.000+ €",
-          { label: "Još ne znam", next: { q: "U kojoj ste fazi?", attach: "dot", options: ["Tek istražujem", "Budžet se još određuje", "Trebam ponudu za odobrenje"] } }
         ] },
         { key: "Početak", q: "Kada biste željeli početi?", options: [
           { label: "Što prije", next: "deadline" },
           { label: "Unutar mjesec dana", next: "deadline" },
           "Za 1–3 mjeseca", "Kasnije", "Fleksibilno"
+        ] },
+        { key: "Budžet", q: "Koliki budžet planirate?", options: [
+          "Do 1.000 €", "1.000–3.000 €", "3.000–6.000 €", "6.000–10.000 €", "10.000–20.000 €", "20.000+ €",
+          { label: "Još ne znam", next: { q: "U kojoj ste fazi?", attach: "dot", options: ["Tek istražujem", "Budžet se još određuje", "Trebam ponudu za odobrenje"] } }
         ] },
         { key: "Odluka", q: "Tko donosi odluku o projektu?", options: [
           "Ja odlučujem", "Zajedno s partnerima ili timom", "Treba odobrenje uprave"
@@ -114,7 +113,7 @@
         { key: "Za nas ste čuli", q: "Kako ste čuli za nas?", options: [
           "Google", "Instagram", "LinkedIn",
           { label: "Preporuka", next: { q: "Tko nas je preporučio?", input: true, attach: "paren", placeholder: "Ime ili tvrtka" } },
-          { label: "Sajam", next: { q: "Koji?", input: true, attach: "paren", placeholder: "npr. ICE Amsterdam" } },
+          { label: "Sajam", next: { q: "Koji?", input: true, attach: "paren", placeholder: "Naziv sajma" } },
           "Nešto drugo"
         ] }
       ],
@@ -122,7 +121,8 @@
         { label: "Da", out: null, next: { key: "Rok", q: "Koji je rok?", input: true, attach: "dot", placeholder: "npr. Boot Düsseldorf, sredina siječnja", skipOut: "nije naveden" } },
         { label: "Ne", out: "Bez fiksnog roka" }
       ] },
-      finalQ: "Hvala! Dodajte par riječi o tvrtki i projektu (nije obavezno) pa pošaljite na WhatsApp.",
+      finalQ: "Hvala! Za kraj vaše ime i par riječi o projektu, pa šaljemo na WhatsApp.",
+      whoPlaceholder: "Ime i prezime (i tvrtka, ako postoji)",
       hello: "Bok Grgo,",
       placeholder: "npr. Imamo restoran i trebamo novi vizualni identitet…",
       next: "Dalje", skip: "Preskoči",
@@ -141,23 +141,22 @@
       steps: [
         { key: "Leistung", q: "Wonach suchen Sie?", options: [
           { label: "Corporate Design", next: { q: "Was trifft am besten zu?", attach: "paren", options: ["Neue Marke", "Bestehendes auffrischen", "Komplettes Rebranding"] } },
-          "Markenmaterialien für Print und Digital",
           { label: "Website", next: { q: "Was trifft am besten zu?", attach: "paren", options: ["Neue Website", "Bestehende neu gestalten", "Nur Anpassungen"] } },
-          { label: "Messedesign", next: { q: "Für welche Messe?", attach: "paren", options: ["ICE Amsterdam", "boot Düsseldorf", "Andere Veranstaltung"] } },
-          { label: "Publikationen", next: { q: "Einmalig oder als Serie?", attach: "paren", options: ["Einmalig", "Serie oder Kollektion"] } },
-          { label: "Verpackung", next: { q: "Einmalig oder als Serie?", attach: "paren", options: ["Einmalig", "Serie oder Kollektion"] } },
-          "Illustration",
+          { label: "Corporate Design und Website", next: { q: "Was trifft am besten zu?", attach: "paren", options: ["Neues Corporate Design und Website", "Rebranding und neue Website für ein bestehendes Unternehmen"] } },
+          { label: "Printmaterialien", next: { q: "Was brauchen Sie?", attach: "paren", options: ["Broschüre oder Katalog", "Buch oder Publikation", "Plakat, Flyer oder Anzeige", "Verpackung", "Souvenirs", "Spiel", "Illustration", "Etwas anderes"] } },
+          { label: "Digitale Materialien", next: { q: "Was brauchen Sie?", attach: "paren", options: ["Social Media", "Online-Anzeigen und Banner", "Präsentation", "Illustration", "Etwas anderes"] } },
+          { label: "Messestand", next: { q: "Für welche Messe?", input: true, attach: "paren", placeholder: "Name der Messe" } },
           "Etwas anderes",
           "Noch nicht sicher"
-        ] },
-        { key: "Budget", q: "Welches Budget planen Sie?", options: [
-          "Unter 1.000 €", "1.000–3.000 €", "3.000–6.000 €", "6.000–10.000 €", "10.000–20.000 €", "20.000+ €",
-          { label: "Noch nicht sicher", next: { q: "Wo stehen Sie gerade?", attach: "dot", options: ["Ich informiere mich nur", "Budget wird noch festgelegt", "Brauche ein Angebot zur Freigabe"] } }
         ] },
         { key: "Start", q: "Wann möchten Sie starten?", options: [
           { label: "So bald wie möglich", next: "deadline" },
           { label: "Innerhalb eines Monats", next: "deadline" },
           "In 1–3 Monaten", "Später", "Flexibel"
+        ] },
+        { key: "Budget", q: "Welches Budget planen Sie?", options: [
+          "Unter 1.000 €", "1.000–3.000 €", "3.000–6.000 €", "6.000–10.000 €", "10.000–20.000 €", "20.000+ €",
+          { label: "Noch nicht sicher", next: { q: "Wo stehen Sie gerade?", attach: "dot", options: ["Ich informiere mich nur", "Budget wird noch festgelegt", "Brauche ein Angebot zur Freigabe"] } }
         ] },
         { key: "Entscheidung", q: "Wer entscheidet über das Projekt?", options: [
           "Ich entscheide", "Gemeinsam mit Partnern oder Team", "Freigabe durch die Geschäftsführung nötig"
@@ -165,7 +164,7 @@
         { key: "Gefunden über", q: "Wie sind Sie auf uns aufmerksam geworden?", options: [
           "Google", "Instagram", "LinkedIn",
           { label: "Empfehlung", next: { q: "Wer hat uns empfohlen?", input: true, attach: "paren", placeholder: "Name oder Firma" } },
-          { label: "Messe", next: { q: "Welche?", input: true, attach: "paren", placeholder: "z. B. ICE Amsterdam" } },
+          { label: "Messe", next: { q: "Welche?", input: true, attach: "paren", placeholder: "Name der Messe" } },
           "Etwas anderes"
         ] }
       ],
@@ -173,7 +172,8 @@
         { label: "Ja", out: null, next: { key: "Deadline", q: "Wann ist die Deadline?", input: true, attach: "dot", placeholder: "z. B. boot Düsseldorf, Mitte Januar", skipOut: "nicht angegeben" } },
         { label: "Nein", out: "Keine feste Deadline" }
       ] },
-      finalQ: "Danke! Ein paar Worte zu Ihrem Unternehmen und Projekt (optional), dann per WhatsApp senden.",
+      finalQ: "Danke! Zum Schluss Ihr Name und ein paar Worte zum Projekt, dann per WhatsApp senden.",
+      whoPlaceholder: "Ihr Name (und Firma, falls vorhanden)",
       hello: "Hallo Grgo,",
       placeholder: "z. B. Wir sind ein Charterunternehmen und brauchen einen neuen Messestand für die boot Düsseldorf…",
       next: "Weiter", skip: "Überspringen",
@@ -252,6 +252,7 @@
     ".dsgw-field{flex:1;min-width:0;border:1px solid #d6d1c8;border-radius:999px;padding:9px 14px;font-size:14px;background:#fff;color:#1d1d1b}" +
     ".dsgw-go{border:0;border-radius:999px;padding:9px 16px;background:#1d1d1b;color:#fff;font-size:13px;font-weight:600;cursor:pointer}" +
     ".dsgw-final{display:flex;flex-direction:column;gap:10px;animation:dsgwIn .25s ease}" +
+    ".dsgw-final .dsgw-field{flex:none;width:100%;border-radius:12px;padding:10px 12px}" +
     ".dsgw-input{width:100%;min-height:84px;resize:vertical;border:1px solid #d6d1c8;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.4;background:#fff;color:#1d1d1b}" +
     ".dsgw-send{border:0;border-radius:12px;padding:12px;background:" + CONFIG.accent + ";color:#fff;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}" +
     ".dsgw-send:hover{filter:brightness(.95)}" +
@@ -398,6 +399,7 @@
   function askFinal() {
     botSay(T.finalQ, function () {
       var box = add(
+        '<input class="dsgw-field dsgw-who-field" type="text" maxlength="80" autocomplete="name" placeholder="' + esc(T.whoPlaceholder) + '" aria-label="' + esc(T.whoPlaceholder) + '">' +
         '<textarea class="dsgw-input" rows="3" placeholder="' + esc(T.placeholder) + '" aria-label="' + esc(T.placeholder) + '"></textarea>' +
         '<button type="button" class="dsgw-send">' + sendIcon + esc(T.send) + "</button>" +
         '<div class="dsgw-links">' +
@@ -406,22 +408,28 @@
         "</div>",
         "dsgw-final");
       var input = box.querySelector(".dsgw-input");
-      box.querySelector(".dsgw-send").addEventListener("click", function () { send(input.value); });
+      var who = box.querySelector(".dsgw-who-field");
+      box.querySelector(".dsgw-send").addEventListener("click", function () { send(input.value, who.value); });
       input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); send(input.value); }
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); send(input.value, who.value); }
+      });
+      who.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); input.focus(); }
       });
       box.querySelector(".dsgw-restart").addEventListener("click", restart);
-      input.focus({ preventScroll: true });
+      who.focus({ preventScroll: true });
       scrollDown();
     });
   }
 
-  function send(description) {
+  function send(description, who) {
     // Greeting, then the visitor's own words, then the summary of answers
     var out = [T.hello, ""];
     var d = (description || "").trim();
     if (d) { out.push(d); out.push(""); }
     lines.forEach(function (l) { out.push(l.k + ": " + l.v); });
+    var w = (who || "").trim();
+    if (w) { out.push(""); out.push("— " + w); }
     var url = "https://wa.me/" + CONFIG.phone + "?text=" + encodeURIComponent(out.join("\n"));
     window.open(url, "_blank", "noopener");
   }
