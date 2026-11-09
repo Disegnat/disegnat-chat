@@ -18,7 +18,8 @@
     hours: { days: [1, 2, 3, 4, 5], from: 9, to: 17 },  // Mon–Fri 9–17
     teaserDelay: 10,                  // seconds before the small greeting bubble; 0 = off
     calendlyUrl: "",                  // optional: your Calendly link shows a "book a call" option at the end
-    typingDelay: 700                  // ms of "typing…" before each question
+    typingDelay: 700,                 // ms of "typing…" before each question
+    language: "auto"                  // "auto", or force one: "en", "hr", "de"
   };
 
   /* ---------- 2. QUESTIONS ----------
@@ -130,12 +131,69 @@
       restart: "Kreni ispočetka",
       open: "Chat na WhatsAppu",
       close: "Zatvori chat"
+    },
+    de: {
+      subtitle: "Inhaber, Studio Disegnat",
+      greeting: "Hallo 👋 Ein paar kurze Fragen, dann geht's auf WhatsApp weiter.",
+      teaser: "Fragen zu einem Projekt? Schreiben Sie uns.",
+      online: "⚡ Antwortet meist innerhalb einer Stunde",
+      offline: "🌙 Gerade nicht da · antwortet am nächsten Werktag",
+      steps: [
+        { key: "Leistung", q: "Wonach suchen Sie?", options: [
+          { label: "Corporate Design", next: { q: "Was trifft am besten zu?", attach: "paren", options: ["Neue Marke", "Bestehendes auffrischen", "Komplettes Rebranding"] } },
+          "Markenmaterialien für Print und Digital",
+          { label: "Website", next: { q: "Was trifft am besten zu?", attach: "paren", options: ["Neue Website", "Bestehende neu gestalten", "Nur Anpassungen"] } },
+          { label: "Messedesign", next: { q: "Für welche Messe?", attach: "paren", options: ["ICE Amsterdam", "boot Düsseldorf", "Andere Veranstaltung"] } },
+          { label: "Publikationen", next: { q: "Einmalig oder als Serie?", attach: "paren", options: ["Einmalig", "Serie oder Kollektion"] } },
+          { label: "Verpackung", next: { q: "Einmalig oder als Serie?", attach: "paren", options: ["Einmalig", "Serie oder Kollektion"] } },
+          "Illustration",
+          "Etwas anderes",
+          "Noch nicht sicher"
+        ] },
+        { key: "Budget", q: "Welches Budget planen Sie?", options: [
+          "Unter 1.000 €", "1.000–3.000 €", "3.000–6.000 €", "6.000–10.000 €", "10.000–20.000 €", "20.000+ €",
+          { label: "Noch nicht sicher", next: { q: "Wo stehen Sie gerade?", attach: "dot", options: ["Ich informiere mich nur", "Budget wird noch festgelegt", "Brauche ein Angebot zur Freigabe"] } }
+        ] },
+        { key: "Start", q: "Wann möchten Sie starten?", options: [
+          { label: "So bald wie möglich", next: "deadline" },
+          { label: "Innerhalb eines Monats", next: "deadline" },
+          "In 1–3 Monaten", "Später", "Flexibel"
+        ] },
+        { key: "Entscheidung", q: "Wer entscheidet über das Projekt?", options: [
+          "Ich entscheide", "Gemeinsam mit Partnern oder Team", "Freigabe durch die Geschäftsführung nötig"
+        ] },
+        { key: "Gefunden über", q: "Wie sind Sie auf uns aufmerksam geworden?", options: [
+          "Google", "Instagram", "LinkedIn",
+          { label: "Empfehlung", next: { q: "Wer hat uns empfohlen?", input: true, attach: "paren", placeholder: "Name oder Firma" } },
+          { label: "Messe", next: { q: "Welche?", input: true, attach: "paren", placeholder: "z. B. ICE Amsterdam" } },
+          "Etwas anderes"
+        ] }
+      ],
+      deadline: { q: "Gibt es eine feste Deadline, z. B. eine Veranstaltung, einen Launch oder eine Saison?", attach: "dot", options: [
+        { label: "Ja", out: null, next: { key: "Deadline", q: "Wann ist die Deadline?", input: true, attach: "dot", placeholder: "z. B. boot Düsseldorf, Mitte Januar", skipOut: "nicht angegeben" } },
+        { label: "Nein", out: "Keine feste Deadline" }
+      ] },
+      finalQ: "Danke! Ein paar Worte zu Ihrem Unternehmen und Projekt (optional), dann per WhatsApp senden.",
+      hello: "Hallo Grgo,",
+      placeholder: "z. B. Wir sind ein Charterunternehmen und brauchen einen neuen Messestand für die boot Düsseldorf…",
+      next: "Weiter", skip: "Überspringen",
+      send: "Weiter auf WhatsApp",
+      book: "Lieber telefonieren? 30-Min.-Erstgespräch buchen",
+      restart: "Neu starten",
+      open: "Chat auf WhatsApp",
+      close: "Chat schließen"
     }
   };
 
   /* ---------- 3. Language & opening hours ---------- */
-  var htmlLang = (document.documentElement.lang || "").toLowerCase();
-  var lang = (htmlLang.indexOf("hr") === 0 || /^\/hr(\/|$)/.test(location.pathname)) ? "hr" : "en";
+  // Order: CONFIG.language if set → language in the URL (/hr/, /de/, /en/)
+  // → visitor's browser language → page language → English
+  function pick(code) { code = String(code || "").toLowerCase().slice(0, 2); return TEXT[code] ? code : null; }
+  var urlLang = (location.pathname.match(/^\/(hr|de|en)(\/|$)/i) || [])[1];
+  var browserLangs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+  var lang = pick(CONFIG.language) || pick(urlLang);
+  for (var li = 0; !lang && li < browserLangs.length; li++) lang = pick(browserLangs[li]);
+  lang = lang || pick(document.documentElement.lang) || "en";
   var T = TEXT[lang];
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
